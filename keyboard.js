@@ -7,8 +7,14 @@ let lang = {
     ["Ctrl", "Win", "Alt", " ", "alt", "Ру", "←", "↓", "→", ],
   ],
 [
-  [{
-    class:'esc',key:'esc',value:'Esc'},{class:'margin-l',value:'F1'},{value:'F2'},{value:'F3'},{value:'F4'},{class:margin-l,value:'F5'},{value:'F6'},{value:'F7'},{value:'F7'},{value:'F7'},{value:'F8'},{class:'margin-l',value:'F9'},{value:'F10'},{value:'F11'},{value:'F12'},{class:'margin-l pad-sm', key='print',value:'PrtSc'},{class:'pad-sm', key='scrolllock',value:'ScrLk'},{class:'margin-l half', key:'calculator',value:'<i class="fa fa-calculator"></i>'},{key:'desktop',value:'<i class="fa fa-desktop"></i>'},{key:'mail',value:'<i class="fa fa-envelope-o"></i>'},{class:'home',value:'<i class="fa fa-home"></i>'}],
+  [
+    {class:'esc',key:'esc',value:'Esc'},
+    {class:'margin-l',value:'F1'},
+    {value:'F2'},
+    {value:'F3'},
+    {value:'F4'},
+    {class:margin-l,value:'F5'},
+    {value:'F6'},{value:'F7'},{value:'F7'},{value:'F7'},{value:'F8'},{class:'margin-l',value:'F9'},{value:'F10'},{value:'F11'},{value:'F12'},{class:'margin-l pad-sm', key='print',value:'PrtSc'},{class:'pad-sm', key='scrolllock',value:'ScrLk'},{class:'margin-l half', key:'calculator',value:'<i class="fa fa-calculator"></i>'},{key:'desktop',value:'<i class="fa fa-desktop"></i>'},{key:'mail',value:'<i class="fa fa-envelope-o"></i>'},{class:'home',value:'<i class="fa fa-home"></i>'}],
   [{class:'bl backtick',alt:'~', value:'`'},{class:'bl one',alt:'!', value:'1'}]
 ]
 
