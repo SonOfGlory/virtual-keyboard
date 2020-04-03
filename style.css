@@ -19,7 +19,7 @@
       clear: both;
       display: block;
     }
-    .metal {
+    .wrapper {
       display: flex;
       flex-direction: column;
       background-color: hsl(0, 0%, 90%);
@@ -71,22 +71,22 @@
       box-shadow: 0 1px 1px #000000, inset 0 0 4px #808080, inset 0 1px 0 #d1d1d1;
     }
     li:active {
-      color: #4d4c4c; /* 727272 */
+      color: #3a3939; /* 727272 */
       cursor: pointer;
       top: 3px;
       box-shadow: 0 1px 1px #000000, inset 0 0 4px #808080, inset 0 1px 0 #d1d1d1;
-      background: #e2e2e4; /* 3e29fa */
+      background: #6b6b6b; /* 3e29fa 9d9d9e 6b6b6b*/
     }
-    .margin-l {
+    .margin-left {
       margin-left: 20px;
     }
-    .margin-l.half {
+    .margin-left.half {
       margin-left: 10px;
     }
-    .margin-r {
+    .margin-right {
       margin-right: 20px;
     }
-    .margin-r.half {
+    .margin-right.half {
       margin-right: 10px;
     }
     .pad {
@@ -166,6 +166,9 @@
       right: 8px;
       content: attr(data-alt);
     }
+    .bl.shift-pressed:after {
+      color: #5a4ff8;
+    }
     .bl.hyphen:after {
       top: -1px;
     }
@@ -207,6 +210,8 @@
     }
     .container.text-area .inner {
       padding: 10px;
+      height: 185px;
+      overflow-y: scroll;
     }
     .text-center {
       text-align: center;
