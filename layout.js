@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             <div class="inner"></div>
         </div>
         <div class="keyboard wrapper">
-        <ul class="top">
+        <ul>
             <li class="esc" data-key="esc">Esc</li>
             <li class="margin-left">F1</li>
             <li>F2</li>
