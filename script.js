@@ -1,75 +1,76 @@
 window.onload = () => {
   const keyState = document.querySelector('.keystate span');
-  document.querySelector('.wrapper').addEventListener("click", function(event) {
-    if (event.target.tagName =='LI') {
-    // TODO: Add even more logic for special keys...
-    var dataKey = event.target.getAttribute('data-key');
-    var $textArea = document.querySelector('.text-area .inner');
-    
-    if (event.target.getAttribute('data-key') != undefined) {
-      if(dataKey == 'backspace') {
-        var text = document.querySelector('.text-area .inner').innerText;
-        backspace = text.substring(0, (text.length-1));
-        $textArea.innerHTML = backspace;	
-      }
-      
-      if(dataKey == 'caps') {
-        document.querySelector('.caps').classList.toggle('on');
-        if(document.querySelector('.caps').classList.contains('on')) { 
-          keyState.innerHTML('Caps on');
-          keyState.style('visibility: visible');
-        } else {
-          keyState.style('visibility: hidden');
+  ['keydown','click'].forEach( function(event) {
+    document.querySelector('.wrapper').addEventListener(event, function(event) {
+      if (event.target.tagName =='LI') {
+        
+        var dataKey = event.target.getAttribute('data-key');
+        var $textArea = document.querySelector('.text-area .inner');
+
+        if (event.target.getAttribute('data-key') != undefined) {
+          if(dataKey == 'backspace') {
+            var text = document.querySelector('.text-area .inner').innerText;
+            backspace = text.substring(0, (text.length-1));
+            $textArea.innerHTML = backspace;	
+          }
+          
+          if(dataKey == 'caps') {
+            document.querySelector('.caps').classList.toggle('on');
+            if(document.querySelector('.caps').classList.contains('on')) { 
+              keyState.innerHTML('Caps on');
+              keyState.style('visibility: visible');
+            } else {
+              keyState.style('visibility: hidden');
+            }
+          }
+          
+          if(dataKey == 'function') {
+            document.querySelector('.fn').classList.toggle('on');
+            if(document.querySelector('.fn').classList.contains('on')) { 
+              keyState.innerHTML('Function on');
+              keyState.style('visibility','visible');
+            } else {
+              keyState.style('visibility','hidden');
+            }			
+          }
+          
+          if(dataKey == 'enter') {
+            $textArea.innerHTML = $textArea.innerHTML + '<br>';	
+          }	
+          
+          if(dataKey == 'tab') {
+            $textArea.innerHTML = $textArea.innerHTML + '&nbsp;&nbsp;&nbsp;&nbsp;';	
+            // An actually tab '&#09;' isn't "tabby" enough for me.
+          }			
+          
+          // Function Keys
+          if(document.querySelector('.fn').classList.contains('on') && event.target.getAttribute('data-function') != undefined) {
+            var keyFunction = event.target.getAttribute('data-function');
+            alert(keyFunction);
+          }		
+        } 
+        else 
+        // No data-key defined
+        {
+          var text = '';
+          if(document.querySelector('.caps').classList.contains('on')) {
+            text = event.target.innerHTML;
+            
+            if(event.target.classList.contains('bl')) {
+              // It's got additional character functions
+              var altKey = event.target.getAttribute('data-alt');
+              text = altKey;
+            }			
+          }		
+          else 
+          {
+            text = event.target.innerHTML.toLowerCase();
+          }		
+          $textArea.innerHTML = $textArea.innerHTML + text;
         }
       }
-      
-      if(dataKey == 'function') {
-        document.querySelector('.fn').classList.toggle('on');
-        if(document.querySelector('.fn').classList.contains('on')) { 
-          keyState.innerHTML('Function on');
-          keyState.style('visibility','visible');
-        } else {
-          keyState.style('visibility','hidden');
-        }			
-      }
-      
-      if(dataKey == 'enter') {
-        $textArea.innerHTML = $textArea.innerHTML + '<br>';	
-      }	
-      
-      if(dataKey == 'tab') {
-        $textArea.innerHTML = $textArea.innerHTML + '&nbsp;&nbsp;&nbsp;&nbsp;';	
-        // An actually tab '&#09;' isn't "tabby" enough for me.
-      }			
-      
-      // Function Keys
-      if(document.querySelector('.fn').classList.contains('on') && event.target.getAttribute('data-function') != undefined) {
-        var keyFunction = event.target.getAttribute('data-function');
-        alert(keyFunction);
-      }		
-    } 
-    else 
-    // No data-key defined
-    {
-      var text = '';
-      if(document.querySelector('.caps').classList.contains('on')) {
-        text = event.target.innerHTML;
-        
-        if(event.target.classList.contains('bl')) {
-          // It's got additional character functions
-          var altKey = event.target.getAttribute('data-alt');
-          text = altKey;
-        }			
-      }		
-      else 
-      {
-        text = event.target.innerHTML.toLowerCase();
-      }		
-      $textArea.innerHTML = $textArea.innerHTML + text;
-    }
-    }
+    }, false);
   });
-
 }
 
 

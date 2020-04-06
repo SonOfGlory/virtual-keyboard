@@ -89,6 +89,7 @@
       cursor: pointer;
       top: 3px;
       box-shadow: 0 1px 1px #000000, inset 0 0 4px #808080, inset 0 1px 0 #d1d1d1;
+      background: #396bf5;
     }
     li:active {
       color: #3a3939; /* 727272 */
