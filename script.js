@@ -1,5 +1,4 @@
 window.onload = () => {
-  // TODO: Add more lighting functions
   const keyState = document.querySelector('.keystate span');
   document.querySelector('.wrapper').addEventListener("click", function(event) {
     if (event.target.tagName =='LI') {

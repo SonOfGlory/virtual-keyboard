@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
     document.querySelector('body').innerHTML=`
-    <div class="container text-area">
+        <div class="container text-area">
             <div class="msg">Type something by clicking keys on the keyboard. The characters will appear here:</div>
             <div class="inner"></div>
         </div>
