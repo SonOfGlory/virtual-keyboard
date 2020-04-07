@@ -73,11 +73,14 @@ const keyValueStorage = [
 
   document.addEventListener("DOMContentLoaded", function() {
     document.body.innerHTML=`
-        <div class="container text-area">
-            <div class="msg">Ctrl+Shift or Alt+Shift to switch the language. Type something by clicking keys on the keyboard. The characters will appear here:</div>
-            <div class="inner"></div>
-        </div>
-        <div class="keyboard wrapper"></div>`
+    <div class="container text-area">
+        <div class="msg">Made on Win10. Press (Ctrl or Alt)+Shift for language. Type something by clicking keys on the keyboard. The characters will appear here:</div>
+        <div class="inner"></div>
+    </div>
+    <div class="container keystate"> 
+      <span> &nbsp;</span>
+    </div>
+    <div class="keyboard wrapper"></div>`
     document.querySelector("body > div.keyboard.wrapper").innerHTML="";
     keyboardSynthesis(0, 0);
 

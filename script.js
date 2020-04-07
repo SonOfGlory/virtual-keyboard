@@ -1,92 +1,105 @@
 window.onload = () => {
-  document.querySelector('.wrapper').addEventListener("click", (e) => {if (event.target.tagName =='LI') clickDownHandler(e.target.dataset.key)});
+  document.querySelector('.wrapper').addEventListener("mousedown", (e) => {if (event.target.tagName =='LI') clickDownHandler(e.target.dataset.key)});
+  document.body.addEventListener("mouseup", (e) => {if (event.target.tagName =='LI') clickUpHandler(e.target.dataset.key)});
   document.addEventListener("keydown", (e) => clickDownHandler(e.code));
+  document.addEventListener("keyup", (e) => clickUpHandler(e.code));
 
   // мышь: text (value) = event.target.innerText or innerHTML | dataKey (id) = event.target.getAttribute('data-key');
   // клава: text (value) = e.key | dataKey (id) = e.code
 
+  function clickUpHandler(event) {
+    const element = document.querySelector(`[data-key="${event}"]`);
+    element.classList.remove('active');
+
+  }
+
+  function capitalizationHandler(toggler) {
+    if (toggler == 'on') document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => {letter.innerHTML = letter.innerHTML.toUpperCase()})
+    else document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => {letter.innerHTML = letter.innerHTML.toLowerCase()})
+  }
   
   function clickDownHandler(event) {
-    console.log(event);
-    let element = document.querySelector(`[data-key="${event}"]`);
-   
+    const element = document.querySelector(`[data-key="${event}"]`);
+    element.classList.add('active');
     const keyState = document.querySelector('.keystate span');
-    const dataKey = event;
     const $textArea = document.querySelector('.text-area .inner');
     
-    if (dataKey != undefined) {
-      if(dataKey == 'Backspace') {
+    if (event != undefined) {
+      if(event == 'Backspace') {
         let text = document.querySelector('.text-area .inner').innerText;
         text = text.substring(0, (text.length-1));
-        $textArea.innerHTML = text;	
+        $textArea.innerHTML = text;
+        return;
       }
       
-      if(dataKey == 'CapsLock') {
+      if (event == 'CapsLock') {
         document.querySelector('.caps').classList.toggle('on');
-        if(document.querySelector('.caps').classList.contains('on')) { 
-          keyState.innerHTML('Caps on');
-          keyState.style('visibility: visible');
+        if(document.querySelector('.caps').classList.contains('on')) {
+          capitalizationHandler('on');
+          keyState.innerHTML='Caps on';
+          keyState.style.visibility='visible';
         } else {
-          keyState.style('visibility: hidden');
+          capitalizationHandler('off');
+          keyState.style.visibility='hidden';
         }
+        return;
       }
 
-      if(dataKey.includes('Shift')) {
-        document.querySelector('.caps').classList.toggle('on');
-        if(document.querySelector('.caps').classList.contains('on')) { 
-          keyState.innerHTML('Caps on');
-          keyState.style('visibility: visible');
+      if (event.includes('Shift')) {
+        console.log(event);
+        document.querySelector('.shift').classList.toggle('on');
+        if(document.querySelector('.shift').classList.contains('on')) { 
+          keyState.innerHTML = 'Shift on';
+          keyState.style.visibility='visible';
         } else {
-          keyState.style('visibility: hidden');
+          keyState.style.visibility='hidden';
         }
+        return;
       }
       
-      if(dataKey == 'ContextMenu') {
+      if (event == 'ContextMenu') {
         document.querySelector('.fn').classList.toggle('on');
         if(document.querySelector('.fn').classList.contains('on')) { 
-          keyState.innerHTML('Function on');
-          keyState.style('visibility','visible');
+          keyState.innerHTML = 'Function on';
+          keyState.style.visibility='visible';
         } else {
-          keyState.style('visibility','hidden');
+          keyState.style.visibility='hidden';
         }			
       }
       
-      if(dataKey.includes('Enter')) {
+      if (event.includes('Enter')) {
         $textArea.insertAdjacentHTML('beforeend','<br>');
       }	
       
-      if(dataKey == 'Tab') {
+      if (event == 'Tab') {
         $textArea.insertAdjacentHTML('beforeend','&nbsp;&nbsp;&nbsp;&nbsp;');
-        // An actually tab '&#09;' isn't "tabby" enough for me.
       }			
       
       // Function Keys
-      if(document.querySelector('.fn').classList.contains('on') && element.getAttribute('data-function') != undefined) {
+      if (document.querySelector('.fn').classList.contains('on') && element.getAttribute('data-function') != undefined) {
         let keyFunction = element.setAttribute('data-function');
         alert(keyFunction);
       }
 
-      else 
-    // No data-key defined
-    {
-      var text = '';
-      if(document.querySelector('.caps').classList.contains('on')) {
-        text = element.innerHTML;
-        
-        if(element.classList.contains('bl')) {
-          // It's got additional character functions
-          var altKey = element.getAttribute('data-alt');
-          text = altKey;
-        }			
-      }		
-      else 
-      {
-        text = element.innerHTML.toLowerCase();
+      // No data-key defined
+      else {
         /* console.log(element.innerHTML); */
+        let text = '';
+        if(document.querySelector('.caps').classList.contains('on')) {
+          text = element.innerHTML;
+          if(element.classList.contains('bl')) {
+            var altKey = element.getAttribute('data-alt');
+            text = altKey;
+          }	
+        }		
+        else 
+        { 
+          text = element.innerHTML.toLowerCase();
+          /* console.log(element.innerHTML); */
+        }
+        $textArea.insertAdjacentHTML('beforeend', text);
+        /* console.log($textArea.innerHTML); */
       }
-      $textArea.insertAdjacentHTML('beforeend', text);
-      /* console.log($textArea.innerHTML); */
-    }
     } 
   };
 
