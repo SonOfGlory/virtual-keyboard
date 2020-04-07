@@ -42,18 +42,18 @@ const keyValueStorage = [
 
   JSKeycodes = [
     ['Esc', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12', 'PrintScreen', 'ScrollLock', 'Pause', '', '', '', 'BrowserHome'],
-    ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Delete', 'Home', 'PageUp', 'NumLock', 'NumpadDivide', 'NumpadMultiply'],
-    ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete', 'End', 'PageDown', 'Numpad7', 'Numpad8', 'Numpad9',],
-    ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter'],
-    ['ShiftLeft', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'],
+    ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Insert', 'Home', 'PageUp', 'NumLock', 'NumpadDivide', 'NumpadMultiply','NumpadSubtract'],
+    ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete', 'End', 'PageDown', 'Numpad7', 'Numpad8', 'Numpad9','NumpadAdd'],
+    ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'Numpad4', 'Numpad5', 'Numpad6'],
+    ['ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ShiftRight', 'ArrowUp', 'Numpad1', 'Numpad2', 'Numpad3', 'NumpadEnter'],
     ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'MetaRight', 'ContextMenu', 'ControlRight',  'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Numpad0', 'NumpadDecimal'],
   ]
 
-  function keyboardSynthesis(styleIndex, languageIndex) {
+  function keyboardSynthesis(styleNumber, languageNumber) {
     // if (document.querySelector('.keyboard.wrapper').innerHTML == '') {
-      keyValueStorage[languageIndex].forEach((row, rowNumber)  => { 
+      styleStorage[styleNumber].forEach((row, rowNumber)  => { 
         let rowWrapper = document.createElement('ul');
-        rowWrapper.innerHTML = (row.map((value, position) => `<li class="${styleStorage[styleIndex][rowNumber][position]}" data-alt="${keyValueStorage[languageIndex+1][rowNumber][position]}">${value}</li>`).join(''));
+        rowWrapper.innerHTML = (row.map((value, position) => `<li class="${value}" data-key="${JSKeycodes[rowNumber][position]}" data-alt="${keyValueStorage[languageNumber+1][rowNumber][position]}">${keyValueStorage[languageNumber][rowNumber][position]}</li>`).join(''));
         document.querySelector(".keyboard.wrapper").append(rowWrapper);
       })
     // }
@@ -62,19 +62,19 @@ const keyValueStorage = [
   let languageIndex=0
 
   function keyClickHandler(event) {
+    /* event.target. */
     if (event.shiftKey && (event.ctrlKey || event.altKey)) {
       languageIndex=languageIndex+2;
       if (languageIndex === keyValueStorage.length) languageIndex=languageIndex%keyValueStorage.length;
       document.querySelector("body > div.keyboard.wrapper").innerHTML="";
       keyboardSynthesis(0, languageIndex);
     }
-
   }
 
   document.addEventListener("DOMContentLoaded", function() {
     document.body.innerHTML=`
         <div class="container text-area">
-            <div class="msg">Type something by clicking keys on the keyboard. The characters will appear here:</div>
+            <div class="msg">Ctrl+Shift or Alt+Shift to switch the language. Type something by clicking keys on the keyboard. The characters will appear here:</div>
             <div class="inner"></div>
         </div>
         <div class="keyboard wrapper"></div>`
