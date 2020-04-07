@@ -10,6 +10,9 @@ window.onload = () => {
   function clickUpHandler(event) {
     const element = document.querySelector(`[data-key="${event}"]`);
     element.classList.remove('active');
+    if (event.includes('Shift')) {
+      capitalizationHandler('off');
+    }
 
   }
 
@@ -46,14 +49,7 @@ window.onload = () => {
       }
 
       if (event.includes('Shift')) {
-        console.log(event);
-        document.querySelector('.shift').classList.toggle('on');
-        if(document.querySelector('.shift').classList.contains('on')) { 
-          keyState.innerHTML = 'Shift on';
-          keyState.style.visibility='visible';
-        } else {
-          keyState.style.visibility='hidden';
-        }
+        capitalizationHandler('on');
         return;
       }
       
@@ -94,7 +90,7 @@ window.onload = () => {
         }		
         else 
         { 
-          text = element.innerHTML.toLowerCase();
+          text = element.innerHTML;
           /* console.log(element.innerHTML); */
         }
         $textArea.insertAdjacentHTML('beforeend', text);
