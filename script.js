@@ -4,16 +4,12 @@ window.onload = () => {
   document.addEventListener("keydown", (e) => clickDownHandler(e.code));
   document.addEventListener("keyup", (e) => clickUpHandler(e.code));
 
-  // мышь: text (value) = event.target.innerText or innerHTML | dataKey (id) = event.target.getAttribute('data-key');
-  // клава: text (value) = e.key | dataKey (id) = e.code
-
   function clickUpHandler(event) {
     const element = document.querySelector(`[data-key="${event}"]`);
     element.classList.remove('active');
     if (event.includes('Shift')) {
       capitalizationHandler('off');
     }
-
   }
 
   function capitalizationHandler(toggler) {
@@ -79,7 +75,6 @@ window.onload = () => {
 
       // No data-key defined
       else {
-        /* console.log(element.innerHTML); */
         let text = '';
         if(document.querySelector('.caps').classList.contains('on')) {
           text = element.innerHTML;
@@ -91,10 +86,8 @@ window.onload = () => {
         else 
         { 
           text = element.innerHTML;
-          /* console.log(element.innerHTML); */
         }
         $textArea.insertAdjacentHTML('beforeend', text);
-        /* console.log($textArea.innerHTML); */
       }
     } 
   };
