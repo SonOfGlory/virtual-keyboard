@@ -1,11 +1,3 @@
-// let div = document.createElement('div');
-// div.className = 'container text-area';
-// div.innerHTML = `<div class="msg">Type something by clicking keys on the keyboard. The characters will appear here:</div>
-// <div class="inner"></div>`;
-// let keyboardWrapper = document.createElement('div')
-// keyboardWrapper.className = 'keyboard wrapper';
-// document.body.append(div);
-// document.body.append(keyboardWrapper);
 const styleStorage = [
   /* Default DOS-like style */
   [
@@ -49,28 +41,6 @@ const keyValueStorage = [
     ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'MetaRight', 'ContextMenu', 'ControlRight',  'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Numpad0', 'NumpadDecimal'],
   ]
 
-  function keyboardSynthesis(styleNumber, languageNumber) {
-    // if (document.querySelector('.keyboard.wrapper').innerHTML == '') {
-      styleStorage[styleNumber].forEach((row, rowNumber)  => { 
-        let rowWrapper = document.createElement('ul');
-        rowWrapper.innerHTML = (row.map((value, position) => `<li class="${value}" data-key="${JSKeycodes[rowNumber][position]}" data-alt="${keyValueStorage[languageNumber+1][rowNumber][position]}">${keyValueStorage[languageNumber][rowNumber][position]}</li>`).join(''));
-        document.querySelector(".keyboard.wrapper").append(rowWrapper);
-      })
-    // }
-  };
-
-  let languageIndex=0
-
-  function keyClickHandler(event) {
-    /* event.target. */
-    if (event.shiftKey && (event.ctrlKey || event.altKey)) {
-      languageIndex=languageIndex+2;
-      if (languageIndex === keyValueStorage.length) languageIndex=languageIndex%keyValueStorage.length;
-      document.querySelector("body > div.keyboard.wrapper").innerHTML="";
-      keyboardSynthesis(0, languageIndex);
-    }
-  }
-
   document.addEventListener("DOMContentLoaded", function() {
     document.body.innerHTML=`
     <div class="container text-area">
@@ -82,24 +52,38 @@ const keyValueStorage = [
     </div>
     <div class="keyboard wrapper"></div>`
     document.querySelector("body > div.keyboard.wrapper").innerHTML="";
-    keyboardSynthesis(0, 0);
+
+    let languageIndexJSON = localStorage.getItem('virtual-keyboard');
+    if (languageIndexJSON !== null) {
+        var languageIndex = JSON.parse(languageIndexJSON)
+    }
+    else {
+      languageIndex = 0;
+    }
+
+    function keyboardSynthesis(styleNumber, languageNumber) {
+      // if (document.querySelector('.keyboard.wrapper').innerHTML == '') {
+        styleStorage[styleNumber].forEach((row, rowNumber)  => { 
+          let rowWrapper = document.createElement('ul');
+          rowWrapper.innerHTML = (row.map((value, position) => `<li class="${value}" data-key="${JSKeycodes[rowNumber][position]}" data-alt="${keyValueStorage[languageNumber+1][rowNumber][position]}">${keyValueStorage[languageNumber][rowNumber][position]}</li>`).join(''));
+          document.querySelector(".keyboard.wrapper").append(rowWrapper);
+        })
+      // }
+    };
+
+    function keyClickHandler(event) {
+      /* event.target. */
+      if (event.shiftKey && (event.ctrlKey || event.altKey)) {
+        console.log(event);
+        languageIndex=languageIndex+2;
+        if (languageIndex === keyValueStorage.length) languageIndex=languageIndex%keyValueStorage.length;
+        document.querySelector("body > div.keyboard.wrapper").innerHTML="";
+        keyboardSynthesis(0, languageIndex);
+        localStorage.setItem('virtual-keyboard', JSON.stringify(languageIndex))
+      }
+    }
+    
+    keyboardSynthesis(0, languageIndex);
 
     document.addEventListener("keydown", (e) => keyClickHandler(e));
     });
-
-/* var curLang = 'en' // en, pl, ua
-
-var keysMap = {
-  key_z: {
-    en: 'z',
-    pl: 'plz',
-    uaL: 'r'
-  },
-}
-curPressKey = 'key_z'
-
-console.log( keysMap[curPressKey][curLang] ) */
-/* function keyListener(event) {
-  var x = event.which || event.keyCode;
-  document.querySelector("body > div.container.text-area > div.inner").innerHTML = "The Unicode value is: " + x;
-} */
