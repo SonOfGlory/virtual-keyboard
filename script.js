@@ -1,12 +1,7 @@
 window.onload = () => {
-  document.querySelector('.wrapper').addEventListener("mousedown", (e) => {if (event.target.tagName =='LI') clickDownHandler(e.target.dataset.key)});
-  document.body.addEventListener("mouseup", (e) => {if (event.target.tagName =='LI') clickUpHandler(e.target.dataset.key)});
-  document.addEventListener("keydown", (e) => clickDownHandler(e.code));
-  document.addEventListener("keyup", (e) => clickUpHandler(e.code));
-
   function capitalizationHandler(toggler) {
-    if (toggler === 'on') document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => {letter.innerHTML.toUpperCase()})
-    else document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => {letter.innerHTML = letter.innerHTML.toLowerCase()})
+    if (toggler === 'on') document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => { letter.innerHTML = letter.innerHTML.toUpperCase(); });
+    else document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => { letter.innerHTML = letter.innerHTML.toLowerCase(); });
   }
 
   function clickUpHandler(event) {
@@ -28,28 +23,19 @@ window.onload = () => {
         let text = document.querySelector('.text-area .inner').innerText;
         text = text.substring(0, (text.length-1));
         $textArea.innerHTML = text;
-        return;
-      }
-
-      if (event === 'CapsLock') {
+      } else if (event === 'CapsLock') {
         document.querySelector('.caps').classList.toggle('on');
         if (document.querySelector('.caps').classList.contains('on')) {
           capitalizationHandler('on');
-          keyState.innerHTML='Caps on';
+          keyState.innerHTML = 'Caps on';
           keyState.style.visibility='visible';
         } else {
           capitalizationHandler('off');
           keyState.style.visibility = 'hidden';
         }
-        return;
-      }
-
-      if (event.includes('Shift')) {
+      } else if (event.includes('Shift')) {
         capitalizationHandler('on');
-        return;
-      }
-
-      if (event === 'ContextMenu') {
+      } else if (event === 'function') {
         document.querySelector('.fn').classList.toggle('on');
         if (document.querySelector('.fn').classList.contains('on')) {
           keyState.innerHTML = 'Function on';
@@ -57,20 +43,18 @@ window.onload = () => {
         } else {
           keyState.style.visibility = 'hidden';
         }
+      } else if (event.includes('Enter')) {
+        $textArea.insertAdjacentHTML('beforeend', '<br>');
+      } else if (event === 'Tab') {
+        $textArea.insertAdjacentHTML('beforeend', '&nbsp;&nbsp;&nbsp;&nbsp;');
+      // eslint-disable-next-line no-empty
+      } else if (event === 'Ctrl') {
+      // eslint-disable-next-line brace-style
       }
-
-      if (event.includes('Enter')) {
-        $textArea.insertAdjacentHTML('beforeend','<br>');
-      }	
-
-      if (event === 'Tab') {
-        $textArea.insertAdjacentHTML('beforeend','&nbsp;&nbsp;&nbsp;&nbsp;');
-      }
-
       // Function Keys
-      if (document.querySelector('.fn').classList.contains('on') && element.getAttribute('data-function') !== undefined) {
-        const keyFunction = element.setAttribute('data-function');
-        alert(keyFunction);
+      else if (document.querySelector('.fn').classList.contains('on') && element.getAttribute('data-function') !== undefined) {
+        element.setAttribute('data-function');
+      // eslint-disable-next-line brace-style
       }
 
       // No data-key defined
@@ -81,19 +65,23 @@ window.onload = () => {
           if (element.classList.contains('bl')) {
             text = element.getAttribute('data-alt');
           }
-        }
-        else
-        {
+        } else {
           text = element.innerHTML;
         }
         $textArea.insertAdjacentHTML('beforeend', text);
       }
     }
   }
+  document.querySelector('.wrapper').addEventListener('mousedown', (e) => {
+    if (e.target.tagName === 'LI') clickDownHandler(e.target.dataset.key);
+  });
+  document.body.addEventListener('mouseup', (e) => { if (e.target.tagName === 'LI') clickUpHandler(e.target.dataset.key); });
+  document.addEventListener('keydown', (e) => clickDownHandler(e.code));
+  document.addEventListener('keyup', (e) => clickUpHandler(e.code));
 };
 
 
-/* 
+/*
 document.addEventListener("DOMContentLoaded", function(event) {
   // TODO: Add more lighting functions
   var keyState = $('.keystate span');
