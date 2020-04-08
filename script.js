@@ -4,6 +4,11 @@ window.onload = () => {
   document.addEventListener("keydown", (e) => clickDownHandler(e.code));
   document.addEventListener("keyup", (e) => clickUpHandler(e.code));
 
+  function capitalizationHandler(toggler) {
+    if (toggler === 'on') document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => {letter.innerHTML.toUpperCase()})
+    else document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => {letter.innerHTML = letter.innerHTML.toLowerCase()})
+  }
+
   function clickUpHandler(event) {
     const element = document.querySelector(`[data-key="${event}"]`);
     element.classList.remove('active');
@@ -12,34 +17,29 @@ window.onload = () => {
     }
   }
 
-  function capitalizationHandler(toggler) {
-    if (toggler == 'on') document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => {letter.innerHTML = letter.innerHTML.toUpperCase()})
-    else document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => {letter.innerHTML = letter.innerHTML.toLowerCase()})
-  }
-  
   function clickDownHandler(event) {
     const element = document.querySelector(`[data-key="${event}"]`);
     element.classList.add('active');
     const keyState = document.querySelector('.keystate span');
     const $textArea = document.querySelector('.text-area .inner');
-    
-    if (event != undefined) {
-      if(event == 'Backspace') {
+
+    if (event !== undefined) {
+      if (event === 'Backspace') {
         let text = document.querySelector('.text-area .inner').innerText;
         text = text.substring(0, (text.length-1));
         $textArea.innerHTML = text;
         return;
       }
-      
-      if (event == 'CapsLock') {
+
+      if (event === 'CapsLock') {
         document.querySelector('.caps').classList.toggle('on');
-        if(document.querySelector('.caps').classList.contains('on')) {
+        if (document.querySelector('.caps').classList.contains('on')) {
           capitalizationHandler('on');
           keyState.innerHTML='Caps on';
           keyState.style.visibility='visible';
         } else {
           capitalizationHandler('off');
-          keyState.style.visibility='hidden';
+          keyState.style.visibility = 'hidden';
         }
         return;
       }
@@ -48,51 +48,49 @@ window.onload = () => {
         capitalizationHandler('on');
         return;
       }
-      
-      if (event == 'ContextMenu') {
+
+      if (event === 'ContextMenu') {
         document.querySelector('.fn').classList.toggle('on');
-        if(document.querySelector('.fn').classList.contains('on')) { 
+        if (document.querySelector('.fn').classList.contains('on')) {
           keyState.innerHTML = 'Function on';
-          keyState.style.visibility='visible';
+          keyState.style.visibility = 'visible';
         } else {
-          keyState.style.visibility='hidden';
-        }			
+          keyState.style.visibility = 'hidden';
+        }
       }
-      
+
       if (event.includes('Enter')) {
         $textArea.insertAdjacentHTML('beforeend','<br>');
       }	
-      
-      if (event == 'Tab') {
+
+      if (event === 'Tab') {
         $textArea.insertAdjacentHTML('beforeend','&nbsp;&nbsp;&nbsp;&nbsp;');
-      }			
-      
+      }
+
       // Function Keys
-      if (document.querySelector('.fn').classList.contains('on') && element.getAttribute('data-function') != undefined) {
-        let keyFunction = element.setAttribute('data-function');
+      if (document.querySelector('.fn').classList.contains('on') && element.getAttribute('data-function') !== undefined) {
+        const keyFunction = element.setAttribute('data-function');
         alert(keyFunction);
       }
 
       // No data-key defined
       else {
         let text = '';
-        if(document.querySelector('.caps').classList.contains('on')) {
+        if (document.querySelector('.caps').classList.contains('on')) {
           text = element.innerHTML;
-          if(element.classList.contains('bl')) {
-            var altKey = element.getAttribute('data-alt');
-            text = altKey;
-          }	
-        }		
-        else 
-        { 
+          if (element.classList.contains('bl')) {
+            text = element.getAttribute('data-alt');
+          }
+        }
+        else
+        {
           text = element.innerHTML;
         }
         $textArea.insertAdjacentHTML('beforeend', text);
       }
-    } 
-  };
-
-}
+    }
+  }
+};
 
 
 /* 
