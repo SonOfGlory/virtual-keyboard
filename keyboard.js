@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevValue = letter.innerHTML;
         letter.innerHTML = prevValue.toLowerCase();
         document.querySelectorAll('.bl').forEach((altLetter) => { altLetter.classList.remove('shift-pressed'); });
+        document.querySelector('.shift').classList.remove('on');
       });
     }
   }
@@ -95,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } else if (event.includes('Shift')) {
         capitalizationHandler('on');
+        document.querySelector('.shift').classList.toggle('on');
       } else if (event === 'function') {
         document.querySelector('.fn').classList.toggle('on');
         if (document.querySelector('.fn').classList.contains('on')) {
@@ -119,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         element.setAttribute('data-function');
       } /*   No data-key defined */ else {
         let text = '';
-        if (document.querySelector('.caps').classList.contains('on')) {
+        if (document.querySelector('.caps').classList.contains('on') || document.querySelector('.shift').classList.contains('on')) {
           text = element.innerHTML;
           if (element.classList.contains('bl')) {
             text = element.getAttribute('data-alt');

@@ -216,8 +216,11 @@
       right: 8px;
       content: attr(data-alt);
     }
+    .bl.shift-pressed {
+      color: #5a4ff8; /* 5a4ff8 797979*/
+    }
     .bl.shift-pressed:after {
-      color: #5a4ff8; 
+      color: #ffffff; 
     }
     .bl.hyphen:after {
       top: -1px;
