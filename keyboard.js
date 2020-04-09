@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => {
         const prevValue = letter.innerHTML;
-        letter.innerHTML = prevValue.toLowerCase(); 
+        letter.innerHTML = prevValue.toLowerCase();
       });
     }
   }
