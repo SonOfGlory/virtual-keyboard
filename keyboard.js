@@ -42,10 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
   function capitalizationHandler(toggler) {
     if (toggler === 'on') {
       document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => { letter.innerHTML = letter.innerHTML.toUpperCase(); });
+      document.querySelectorAll('.bl').forEach((altLetter) => { altLetter.classList.add('shift-pressed'); });
     } else {
       document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => {
         const prevValue = letter.innerHTML;
         letter.innerHTML = prevValue.toLowerCase();
+        document.querySelectorAll('.bl').forEach((altLetter) => { altLetter.classList.remove('shift-pressed'); });
       });
     }
   }

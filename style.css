@@ -217,7 +217,7 @@
       content: attr(data-alt);
     }
     .bl.shift-pressed:after {
-      color: #5a4ff8;
+      color: #5a4ff8; 
     }
     .bl.hyphen:after {
       top: -1px;
