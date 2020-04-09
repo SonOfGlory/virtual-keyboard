@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 document.addEventListener('DOMContentLoaded', () => {
   document.body.innerHTML = `
   <div class="container text-area">
@@ -38,8 +39,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function keyClickHandler(event) {
-    /* event.target. */
+  function capitalizationHandler(toggler) {
+    if (toggler === 'on') {
+      document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => { letter.innerHTML = letter.innerHTML.toUpperCase(); });
+    } else {
+      document.querySelectorAll('li[data-key*="Key"]').forEach((letter) => {
+        const prevValue = letter.innerHTML;
+        letter.innerHTML = prevValue.toLowerCase(); 
+      });
+    }
+  }
+
+  function clickUpHandler(event) {
+    const element = document.querySelector(`[data-key="${event}"]`);
+    element.classList.remove('active');
+    if (event.includes('Shift')) {
+      capitalizationHandler('off');
+    }
+  }
+
+  function langChangeHandler(event) {
     if (event.shiftKey && (event.ctrlKey || event.altKey)) {
       languageIndex += 2;
       if (languageIndex === keyValueArray.length) {
@@ -51,6 +70,68 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function clickDownHandler(event) {
+    const element = document.querySelector(`[data-key="${event}"]`);
+    element.classList.add('active');
+    const keyState = document.querySelector('.keystate span');
+    const $textArea = document.querySelector('.text-area .inner');
+
+    if (event !== undefined) {
+      if (event === 'Backspace') {
+        let text = document.querySelector('.text-area .inner').innerText;
+        text = text.substring(0, (text.length - 1));
+        $textArea.innerHTML = text;
+      } else if (event === 'CapsLock') {
+        document.querySelector('.caps').classList.toggle('on');
+        if (document.querySelector('.caps').classList.contains('on')) {
+          capitalizationHandler('on');
+          keyState.innerHTML = 'Caps on';
+          keyState.style.visibility = 'visible';
+        } else {
+          capitalizationHandler('off');
+          keyState.style.visibility = 'hidden';
+        }
+      } else if (event.includes('Shift')) {
+        capitalizationHandler('on');
+      } else if (event === 'function') {
+        document.querySelector('.fn').classList.toggle('on');
+        if (document.querySelector('.fn').classList.contains('on')) {
+          keyState.innerHTML = 'Function on';
+          keyState.style.visibility = 'visible';
+        } else {
+          keyState.style.visibility = 'hidden';
+        }
+      } else if (event.includes('Enter')) {
+        $textArea.insertAdjacentHTML('beforeend', '<br>');
+      } else if (event === 'Tab') {
+        $textArea.insertAdjacentHTML('beforeend', '&nbsp;&nbsp;&nbsp;&nbsp;');
+      } else if (event.includes('Alt')) {
+        $textArea.insertAdjacentHTML('beforeend', '');
+      } else if (event.includes('Control')) {
+        $textArea.insertAdjacentHTML('beforeend', '');
+      } /* Function Keys */ else if (document.querySelector('.fn').classList.contains('on') && element.getAttribute('data-function') !== undefined) {
+        element.setAttribute('data-function');
+      } /*   No data-key defined */ else {
+        let text = '';
+        if (document.querySelector('.caps').classList.contains('on')) {
+          text = element.innerHTML;
+          if (element.classList.contains('bl')) {
+            text = element.getAttribute('data-alt');
+          }
+        } else {
+          text = element.innerHTML;
+        }
+        $textArea.insertAdjacentHTML('beforeend', text);
+      }
+    }
+  }
   keyboardSynthesis(0, languageIndex);
-  document.addEventListener('keydown', (e) => keyClickHandler(e));
+
+  document.querySelector('.wrapper').addEventListener('mousedown', (e) => {
+    if (e.target.tagName === 'LI') clickDownHandler(e.target.dataset.key);
+  });
+  document.body.addEventListener('mouseup', (e) => { if (e.target.tagName === 'LI') clickUpHandler(e.target.dataset.key); });
+  document.addEventListener('keydown', (e) => clickDownHandler(e.code));
+  document.addEventListener('keyup', (e) => clickUpHandler(e.code));
+  document.addEventListener('keydown', (e) => langChangeHandler(e));
 });

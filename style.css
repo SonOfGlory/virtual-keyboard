@@ -82,6 +82,20 @@
       border-radius: 5px;
       box-shadow: 0 4px 4px #000000, inset 0 0 4px #808080, inset 0 1px 0 #d1d1d1;
     }
+
+    li .deep-purple{
+      cursor: pointer;
+      position: relative;
+      z-index: 1000;
+      text-align: center;
+      background: #07074d;
+      padding: 5px 10px 14px 10px;
+      margin: 0 2px 4px 2px;
+      min-width: 22px;
+      border-radius: 5px;
+      box-shadow: 0 4px 4px #050515, inset 0 0 4px #352500, inset 0 1px 0 #fab30d;
+  }
+
     button {
       display: inline-block;
       color: #c1c1c1;
@@ -296,7 +310,8 @@
       text-decoration: underline;
     }
     .on {
-      color: #396bf5;
+      color: #c5c5c5;
+      background: #676767;
     }
     .lowercase {
       text-transform: lowercase;
