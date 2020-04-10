@@ -217,7 +217,7 @@
       content: attr(data-alt);
     }
     .bl.shift-pressed {
-      color: #5a4ff8; /* 5a4ff8 797979*/
+      color: #797979; /* 5a4ff8 797979*/
     }
     .bl.shift-pressed:after {
       color: #ffffff; 
@@ -256,6 +256,7 @@
     .container.text-area {
       background: #dedede;
       border-radius: 10px;
+      height: 264px;
     }
     .container.text-area .msg {
       padding: 10px;
@@ -263,7 +264,7 @@
     }
     .container.text-area .inner {
       padding: 10px;
-      height: 185px;
+      height: 178px;
       overflow-y: scroll;
       overflow-wrap: break-word;
 	    -ms-overflow-style: none;  

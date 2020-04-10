@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (event !== undefined) {
       if (event === 'Backspace') {
-        let text = document.querySelector('.text-area .inner').innerText;
+        let text = $textArea.innerText;
         text = text.substring(0, (text.length - 1));
         $textArea.innerHTML = text;
       } else if (event === 'CapsLock') {
@@ -186,9 +186,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelector('.wrapper').addEventListener('mousedown', (e) => {
     if (e.target.tagName === 'LI') clickDownHandler(e.target.dataset.key);
+    else if (e.target.tagName === 'I') clickDownHandler(e.target.parentNode.dataset.key);
   });
-  document.body.addEventListener('mouseup', (e) => { if (e.target.tagName === 'LI') clickUpHandler(e.target.dataset.key); });
-  document.addEventListener('keydown', (e) => clickDownHandler(e.code));
+  document.body.addEventListener('mouseup', (e) => {
+    if (e.target.tagName === 'LI') clickUpHandler(e.target.dataset.key);
+    else if (e.target.tagName === 'I') clickUpHandler(e.target.parentNode.dataset.key);
+  });
+  document.addEventListener('keydown', (e) => {
+    clickDownHandler(e.code); langChangeHandler(e);
+  });
   document.addEventListener('keyup', (e) => clickUpHandler(e.code));
-  document.addEventListener('keydown', (e) => langChangeHandler(e));
 });
