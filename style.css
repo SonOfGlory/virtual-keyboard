@@ -81,6 +81,7 @@
       min-width: 22px;
       border-radius: 5px;
       box-shadow: 0 4px 4px #000000, inset 0 0 4px #808080, inset 0 1px 0 #d1d1d1;
+      transition: all 0.5s;
     }
 
     li .deep-purple{
@@ -119,6 +120,7 @@
       top: 3px;
       box-shadow: 0 1px 1px #000000, inset 0 0 4px #808080, inset 0 1px 0 #d1d1d1;
       background: #9f9f9f;
+      transition: all 0.5s;
     }
     li:active {
       color: #3a3939; /* 727272 */
@@ -126,6 +128,7 @@
       top: 3px;
       box-shadow: 0 1px 1px #000000, inset 0 0 4px #808080, inset 0 1px 0 #d1d1d1;
       background: #6b6b6b; /* 3e29fa 9d9d9e 6b6b6b*/
+      transition: all 0.5s;
     }
     .margin-left {
       margin-left: 20px;
