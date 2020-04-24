@@ -110,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (event.includes('Meta')) {
         $textArea.insertAdjacentHTML('beforeend', '');
       } else if (event === 'Tab') {
-        event.preventDefault();
         $textArea.insertAdjacentHTML('beforeend', '&nbsp;&nbsp;&nbsp;&nbsp;');
       } else if (event.includes('Alt')) {
         $textArea.insertAdjacentHTML('beforeend', '');
