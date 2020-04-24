@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (event.includes('Meta')) {
         $textArea.insertAdjacentHTML('beforeend', '');
       } else if (event === 'Tab') {
+        event.preventDefault();
         $textArea.insertAdjacentHTML('beforeend', '&nbsp;&nbsp;&nbsp;&nbsp;');
       } else if (event.includes('Alt')) {
         $textArea.insertAdjacentHTML('beforeend', '');
@@ -132,55 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
         $textArea.insertAdjacentHTML('beforeend', text);
       }
     }
-    // switch (event) {
-    //   case 'Backspace':
-    //   { let text = document.querySelector('.text-area .inner').innerText;
-    //     text = text.substring(0, (text.length - 1));
-    //     $textArea.innerHTML = text;
-    //     break; }
-    //   case 'CapsLock':
-    //   { document.querySelector('.caps').classList.toggle('on');
-    //     if (document.querySelector('.caps').classList.contains('on')) {
-    //       capitalizationHandler('on');
-    //       keyState.innerHTML = 'Caps on';
-    //       keyState.style.visibility = 'visible';
-    //     } else {
-    //       capitalizationHandler('off');
-    //       keyState.style.visibility = 'hidden';
-    //     }
-    //     break; }
-    //   case 'ShiftLeft':
-    //   case 'ShiftRight':
-    //   { /* console.log(event); */
-    //     capitalizationHandler('on');
-    //     // if (Array.from(document.querySelectorAll('li[data-key*="Control"]'))
-    //     //   .some((searched) => searched.classList.contains('active'))) {
-    //     //   langChangeHandler();
-    //     break; }
-    //   case 'function': {
-    //     document.querySelector('.fn').classList.toggle('on');
-    //     if (document.querySelector('.fn').classList.contains('on')) {
-    //       keyState.innerHTML = 'Function on';
-    //       keyState.style.visibility = 'visible';
-    //     } else {
-    //       keyState.style.visibility = 'hidden';
-    //     }
-    //     break;
-    //   }
-    //   default: {
-    //     let text = '';
-    //     if (document.querySelector('.caps').classList.contains('on')) {
-    //       text = element.innerHTML;
-    //       if (element.classList.contains('bl')) {
-    //         text = element.getAttribute('data-alt');
-    //       }
-    //     } else {
-    //       text = element.innerHTML;
-    //     }
-    //     $textArea.insertAdjacentHTML('beforeend', text);
-    //     break;
-    //   }
-    // }
   }
   keyboardSynthesis(0, languageIndex);
 
@@ -193,6 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (e.target.tagName === 'I') clickUpHandler(e.target.parentNode.dataset.key);
   });
   document.addEventListener('keydown', (e) => {
+    if (e.code === 'Tab') {
+      e.preventDefault();
+    }
     clickDownHandler(e.code);
     langChangeHandler(e);
   });
